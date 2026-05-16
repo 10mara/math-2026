@@ -263,66 +263,235 @@ class Heron(Scene):
             eq7.animate.move_to([0, 2, 0]).scale(0.8)
         )
 
-        # ========== SECAO 4 ==========
-        secao4 = Text(
-            "4. Encontrando a Altura h",
-            color=YELLOW,
-            font_size=36
-        )
-
+     
+        # ========== SECAO 4: ENCONTRANDO h ==========
+        secao4 = Text("4. Encontrando a Altura h", color=YELLOW, font_size=36)
         secao4.to_edge(UP, buff=MARGEM)
-
         self.play(Transform(secao2, secao4))
         self.wait(1)
 
-        h_texto = Text(
-            "Substituindo x em h² = c² - x²:",
-            font_size=26
-        ).move_to([0, 1, 0])
+        h_texto = Text("Substituindo x em h² = c² - x²:", font_size=26)
+        h_texto.move_to([0, 1, 0])
 
         self.play(Write(h_texto))
         self.wait(2)
 
+        # -------------------------------------------------
+        # PRIMEIRA SUBSTITUIÇÃO
+        # -------------------------------------------------
+
         eq8 = MathTex(
-            r"h^2 = c^2 - \left(\frac{a^2 + c^2 - b^2}{2a}\right)^2",
-            font_size=32
-        ).move_to([0, 0, 0])
+            r"h^2 = c^2 - \left(\frac{a^2 - b^2 + c^2}{2a}\right)^2",
+            font_size=30
+        )
+        eq8.move_to([0, 0, 0])
 
         self.play(Write(eq8))
         self.wait(3)
 
-        h_texto2 = Text(
-            "Após simplificações algébricas:",
-            font_size=26
-        ).move_to([0, -1, 0])
-
-        self.play(Write(h_texto2))
-        self.wait(2)
+        # -------------------------------------------------
+        # COLOCANDO EM MESMO DENOMINADOR
+        # -------------------------------------------------
 
         eq9 = MathTex(
-            r"h = \frac{2\sqrt{p(p-a)(p-b)(p-c)}}{a}",
-            color=ORANGE,
-            font_size=34
-        ).move_to([0, -2, 0])
-
-        p_def = MathTex(
-            r"\text{onde } p = \frac{a+b+c}{2}",
-            font_size=28
-        ).move_to([0, -2.8, 0])
+            r"h^2 = \frac{4a^2c^2 - (a^2 - b^2 + c^2)^2}{4a^2}",
+            font_size=30
+        )
+        eq9.move_to([0, -1.2, 0])
 
         self.play(Write(eq9))
-        self.wait(1)
-
-        self.play(Write(p_def))
         self.wait(4)
 
+        # -------------------------------------------------
+        # USANDO ÁREA
+        # -------------------------------------------------
+
         self.play(
-            FadeOut(eq7),
             FadeOut(h_texto),
+            eq8.animate.move_to([0, 2.3, 0]).scale(0.8),
+            eq9.animate.move_to([0, 1.3, 0]).scale(0.9)
+        )
+
+        area_text = Text(
+            "Sabendo que A = ah/2:",
+            font_size=26
+        )
+        area_text.move_to([0, 0.4, 0])
+
+        self.play(Write(area_text))
+        self.wait(2)
+
+        eq10 = MathTex(
+            r"A^2 = \frac{a^2 h^2}{4}",
+            font_size=34
+        )
+        eq10.move_to([0, -0.3, 0])
+
+        self.play(Write(eq10))
+        self.wait(2)
+
+        # -------------------------------------------------
+        # SUBSTITUIÇÃO EM A²
+        # -------------------------------------------------
+
+        eq11 = MathTex(
+            r"A^2 = \frac{a^2}{4}"
+            r"\cdot"
+            r"\frac{4a^2c^2 - (a^2 - b^2 + c^2)^2}{4a^2}",
+            font_size=28
+        )
+        eq11.move_to([0, -1.3, 0])
+
+        self.play(Write(eq11))
+        self.wait(4)
+
+        eq12 = MathTex(
+            r"A^2 = \frac{(2ac)^2 - (a^2 - b^2 + c^2)^2}{16}",
+            font_size=30
+        )
+        eq12.move_to([0, -2.3, 0])
+
+        self.play(Write(eq12))
+        self.wait(4)
+
+        # -------------------------------------------------
+        # LIMPA TELA
+        # -------------------------------------------------
+
+        self.play(
             FadeOut(eq8),
-            FadeOut(h_texto2),
-            FadeOut(p_def),
-            eq9.animate.move_to([0, 1.5, 0]).scale(0.85)
+            FadeOut(eq9),
+            FadeOut(area_text),
+            FadeOut(eq10),
+            FadeOut(eq11),
+            eq12.animate.move_to([0, 2.5, 0]).scale(0.9)
+        )
+
+        # =========================================================
+        # FATORAÇÃO
+        # =========================================================
+
+        fat_text = Text(
+            "Aplicando diferença de quadrados:",
+            font_size=26
+        )
+        fat_text.move_to([0, 1.4, 0])
+
+        self.play(Write(fat_text))
+        self.wait(2)
+
+        eq13 = MathTex(
+            r"A^2 = "
+            r"\frac{[2ac + (a^2-b^2+c^2)]"
+            r"[2ac - (a^2-b^2+c^2)]}{16}",
+            font_size=28
+        )
+        eq13.move_to([0, 0.4, 0])
+
+        self.play(Write(eq13))
+        self.wait(4)
+
+        # -------------------------------------------------
+        # REESCREVENDO
+        # -------------------------------------------------
+
+        eq14 = MathTex(
+            r"A^2 = "
+            r"\frac{[(a+c)^2-b^2]"
+            r"[b^2-(a-c)^2]}{16}",
+            font_size=28
+        )
+        eq14.move_to([0, -0.8, 0])
+
+        self.play(Write(eq14))
+        self.wait(4)
+
+        # -------------------------------------------------
+        # NOVA FATORAÇÃO
+        # -------------------------------------------------
+
+        eq15 = MathTex(
+            r"A^2 = "
+            r"\frac{(a+c-b)(a+c+b)(-a+c+b)(a-c+b)}{16}",
+            font_size=26
+        )
+        eq15.move_to([0, -2, 0])
+
+        self.play(Write(eq15))
+        self.wait(5)
+
+        # -------------------------------------------------
+        # LIMPA
+        # -------------------------------------------------
+
+        self.play(
+            FadeOut(eq12),
+            FadeOut(fat_text),
+            FadeOut(eq13),
+            FadeOut(eq14),
+            eq15.animate.move_to([0, 1.5, 0]).scale(1.05)
+        )
+
+        # =========================================================
+        # SEMIPERÍMETRO
+        # =========================================================
+
+        semi_text = Text(
+            "Definindo o semiperímetro:",
+            font_size=26
+        )
+        semi_text.move_to([0, 0.5, 0])
+
+        self.play(Write(semi_text))
+        self.wait(2)
+
+        eq16 = MathTex(
+            r"p = \frac{a+b+c}{2}",
+            color=YELLOW,
+            font_size=36
+        )
+        eq16.move_to([0, -0.3, 0])
+
+        self.play(Write(eq16))
+        self.wait(3)
+
+        eq17 = MathTex(
+            r"A^2 = p(p-a)(p-b)(p-c)",
+            font_size=34
+        )
+        eq17.move_to([0, -1.6, 0])
+
+        self.play(Write(eq17))
+        self.wait(4)
+
+        # -------------------------------------------------
+        # FÓRMULA FINAL
+        # -------------------------------------------------
+
+        eq18 = MathTex(
+            r"A = \sqrt{p(p-a)(p-b)(p-c)}",
+            color=ORANGE,
+            font_size=42
+        )
+        eq18.move_to([0, -2.8, 0])
+
+        box_heron = SurroundingRectangle(eq18, color=GOLD, buff=0.2)
+
+        self.play(Write(eq18))
+        self.play(Create(box_heron))
+        self.wait(5)
+
+        # -------------------------------------------------
+        # LIMPAR PARA FINAL
+        # -------------------------------------------------
+
+        self.play(
+            FadeOut(eq15),
+            FadeOut(semi_text),
+            FadeOut(eq16),
+            FadeOut(eq17),
+            FadeOut(box_heron),
+            eq18.animate.move_to([0, 1.5, 0]).scale(0.9)
         )
 
         # ========== SECAO 5 ==========
